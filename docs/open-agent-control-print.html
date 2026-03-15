@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>OpenAgents Control Documentation</title>
+  <style>
+    html {
+      color: #000000 !important;
+      background-color: #ffffff !important;
+    }
+    body {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+    }
+    pre, code {
+      background-color: #f5f5f5 !important;
+      color: #000000 !important;
+      border: 1px solid #ddd;
+      white-space: pre-wrap !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      max-width: 100%;
+    }
+    table {
+      width: 100%;
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
+    td, th {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+    pre {
+      overflow-x: auto;
+    }
+    @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+      }
+      pre, code {
+        background-color: #f5f5f5 !important;
+        color: black !important;
+      }
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">OpenAgents Control Documentation</h1>
+</header>
+<div data-align="center">
+<figure>
+<img src="docs/images/hero-image.png" alt="OpenAgents Control Hero" />
+<figcaption aria-hidden="true">OpenAgents Control Hero</figcaption>
+</figure>
+<h1 id="openagents-control-oac">OpenAgents Control (OAC)</h1>
+<h3 id="control-your-ai-patterns.-get-repeatable-results.">Control your
+AI patterns. Get repeatable results.</h3>
+<p><strong>AI agents that learn YOUR coding patterns and generate
+matching code every time.</strong></p>
+<p>🎯 <strong>Pattern Control</strong> - Define your patterns once, AI
+uses them forever<br />
+✋ <strong>Approval Gates</strong> - Review and approve before
+execution<br />
+🔁 <strong>Repeatable Results</strong> - Same patterns = Same quality
+code<br />
+📝 <strong>Editable Agents</strong> - Full control over AI
+behavior<br />
+👥 <strong>Team-Ready</strong> - Everyone uses the same patterns</p>
+<p><strong>Multi-language:</strong> TypeScript • Python • Go • Rust •
+Any language*<br />
+<strong>Model Agnostic:</strong> Claude • GPT • Gemini • Local
+models</p>
+<p><a
+href="https://github.com/darrenhinde/OpenAgentsControl/stargazers"><img
+src="https://img.shields.io/github/stars/darrenhinde/OpenAgentsControl?style=flat-square&amp;logo=github&amp;labelColor=black&amp;color=ffcb47"
+alt="GitHub stars" /></a> <a href="https://x.com/DarrenBuildsAI"><img
+src="https://img.shields.io/twitter/follow/DarrenBuildsAI?style=flat-square&amp;logo=x&amp;labelColor=black&amp;color=1DA1F2"
+alt="X Follow" /></a> <a href="https://opensource.org/licenses/MIT"><img
+src="https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&amp;labelColor=black"
+alt="License: MIT" /></a> <a
+href="https://github.com/darrenhinde/OpenAgentsControl/commits/main"><img
+src="https://img.shields.io/github/last-commit/darrenhinde/OpenAgentsControl?style=flat-square&amp;labelColor=black&amp;color=8957e5"
+alt="Last Commit" /></a></p>
+<p><a href="#-quick-start">🚀 Quick Start</a> • <a
+href="#-example-workflow">💻 Show Me Code</a> • <a
+href="https://github.com/darrenhinde/OpenAgentsControl/projects">🗺️
+Roadmap</a> • <a href="https://nextsystems.ai">💬 Community</a></p>
+</div>
+<hr />
+<blockquote>
+<p><strong>Built on <a href="https://opencode.ai">OpenCode</a></strong>
+- An open-source AI coding framework. OAC extends OpenCode with
+specialized agents, context management, and team workflows.</p>
+</blockquote>
+<hr />
+<h2 id="the-problem">The Problem</h2>
+<p>Most AI agents are like hiring a developer who doesn’t know your
+codebase. They write generic code. You spend hours rewriting,
+refactoring, and fixing inconsistencies. Tokens burned. Time wasted. No
+actual work done.</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// What AI gives you (generic)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">POST</span>(request<span class="op">:</span> Request) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> request<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Response<span class="op">.</span><span class="fu">json</span>({ success<span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">// What you actually need (your patterns)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">POST</span>(request<span class="op">:</span> Request) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> body <span class="op">=</span> <span class="cf">await</span> request<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> validated <span class="op">=</span> UserSchema<span class="op">.</span><span class="fu">parse</span>(body)<span class="op">;</span>  <span class="co">// Your Zod validation</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> db<span class="op">.</span><span class="at">users</span><span class="op">.</span><span class="fu">create</span>(validated)<span class="op">;</span>  <span class="co">// Your Drizzle ORM</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Response<span class="op">.</span><span class="fu">json</span>(result<span class="op">,</span> { status<span class="op">:</span> <span class="dv">201</span> })<span class="op">;</span>  <span class="co">// Your response format</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="the-solution">The Solution</h2>
+<p><strong>OpenAgentsControl teaches agents your patterns
+upfront.</strong> They understand your coding standards, your
+architecture, your security requirements. They propose plans before
+implementing. They execute incrementally with validation.</p>
+<p><strong>The result:</strong> Production-ready code that ships without
+heavy rework.</p>
+<h3 id="what-makes-aoc-different">What Makes AOC Different</h3>
+<p><strong>🎯 Context-Aware (Your Secret Weapon)</strong><br />
+Agents load YOUR patterns before generating code. Code matches your
+project from the start. No refactoring needed.</p>
+<p><strong>📝 Editable Agents (Not Baked-In Plugins)</strong><br />
+Full control over agent behavior. Edit markdown files directly—no
+compilation, no vendor lock-in. Change workflows, add constraints,
+customize for your team.</p>
+<p><strong>✋ Approval Gates (Human-Guided AI)</strong><br />
+Agents ALWAYS request approval before execution. Propose → Approve →
+Execute. You stay in control. No “oh no, what did the AI just do?”
+moments.</p>
+<p><strong>⚡ Token Efficient (MVI Principle)</strong><br />
+Minimal Viable Information design. Only load what’s needed, when it’s
+needed. Context files &lt;200 lines, lazy loading, faster responses.</p>
+<p><strong>👥 Team-Ready (Repeatable Patterns)</strong><br />
+Store YOUR coding patterns once. Entire team uses same standards. Commit
+context to repo. New developers inherit team patterns automatically.</p>
+<p><strong>🔄 Model Agnostic</strong><br />
+Use any AI model (Claude, GPT, Gemini, local). No vendor lock-in.</p>
+<p><strong>Full-stack development:</strong> AOC handles both frontend
+and backend work. The agents coordinate to build complete features from
+UI to database.</p>
+<hr />
+<h2 id="quick-comparison">🆚 Quick Comparison</h2>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 28%" />
+<col style="width: 23%" />
+<col style="width: 10%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>OpenAgentsControl</th>
+<th>Cursor/Copilot</th>
+<th>Aider</th>
+<th>Oh My OpenCode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Learn Your Patterns</strong></td>
+<td>✅ Built-in context system</td>
+<td>❌ No pattern learning</td>
+<td>❌ No pattern learning</td>
+<td>⚠️ Manual setup</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Gates</strong></td>
+<td>✅ Always required</td>
+<td>⚠️ Optional (default off)</td>
+<td>❌ Auto-executes</td>
+<td>❌ Fully autonomous</td>
+</tr>
+<tr class="odd">
+<td><strong>Token Efficiency</strong></td>
+<td>✅ MVI principle (80% reduction)</td>
+<td>❌ Full context loaded</td>
+<td>❌ Full context loaded</td>
+<td>❌ High token usage</td>
+</tr>
+<tr class="even">
+<td><strong>Team Standards</strong></td>
+<td>✅ Shared context files</td>
+<td>❌ Per-user settings</td>
+<td>❌ No team support</td>
+<td>⚠️ Manual config per user</td>
+</tr>
+<tr class="odd">
+<td><strong>Edit Agent Behavior</strong></td>
+<td>✅ Markdown files you edit</td>
+<td>❌ Proprietary/baked-in</td>
+<td>⚠️ Limited prompts</td>
+<td>✅ Config files</td>
+</tr>
+<tr class="even">
+<td><strong>Model Choice</strong></td>
+<td>✅ Any model, any provider</td>
+<td>⚠️ Limited options</td>
+<td>⚠️ OpenAI/Claude only</td>
+<td>✅ Multiple models</td>
+</tr>
+<tr class="odd">
+<td><strong>Execution Speed</strong></td>
+<td>⚠️ Sequential with approval</td>
+<td>Fast</td>
+<td>Fast</td>
+<td>✅ Parallel agents</td>
+</tr>
+<tr class="even">
+<td><strong>Error Recovery</strong></td>
+<td>✅ Human-guided validation</td>
+<td>⚠️ Auto-retry (can loop)</td>
+<td>⚠️ Auto-retry</td>
+<td>✅ Self-correcting</td>
+</tr>
+<tr class="odd">
+<td><strong>Best For</strong></td>
+<td>Production code, teams</td>
+<td>Quick prototypes</td>
+<td>Solo developers</td>
+<td>Power users, complex projects</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Use AOC when:</strong> - ✅ You have established coding
+patterns - ✅ You want code that ships without refactoring - ✅ You need
+approval gates for quality control - ✅ You care about token efficiency
+and costs</p>
+<p><strong>Use others when:</strong> - <strong>Cursor/Copilot:</strong>
+Quick prototypes, don’t care about patterns - <strong>Aider:</strong>
+Simple file edits, no team coordination - <strong>Oh My
+OpenCode:</strong> Need autonomous execution with parallel agents (speed
+over control)</p>
+<blockquote>
+<p><strong>Full comparison:</strong> <a
+href="https://github.com/darrenhinde/OpenAgentsControl/discussions/116">Read
+detailed analysis →</a></p>
+</blockquote>
+<hr />
+<h2 id="quick-start">🚀 Quick Start</h2>
+<p><strong>Prerequisites:</strong> <a
+href="https://opencode.ai/docs">OpenCode CLI</a> (free, open-source) •
+Bash 3.2+ • Git</p>
+<h3 id="step-1-install">Step 1: Install</h3>
+<p><strong>One command:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh <span class="kw">|</span> <span class="fu">bash</span> <span class="at">-s</span> developer</span></code></pre></div>
+<p><sub>The installer will set up OpenCode CLI if you don’t have it
+yet.</sub></p>
+<p><strong>Or interactive:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh <span class="at">-o</span> install.sh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> install.sh</span></code></pre></div>
+<h3 id="step-2-start-building">Step 2: Start Building</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--agent</span> OpenAgent</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a user authentication system&quot;</span></span></code></pre></div>
+<h3 id="step-3-approve-ship">Step 3: Approve &amp; Ship</h3>
+<p><strong>What happens:</strong> 1. Agent analyzes your request 2.
+Proposes a plan (you approve) 3. Executes step-by-step with validation
+4. Delegates to specialists when needed 5. Ships production-ready
+code</p>
+<p><strong>That’s it.</strong> Works immediately with your default
+model. No configuration required.</p>
+<hr />
+<h2 id="the-context-system-your-secret-weapon">💡 The Context System:
+Your Secret Weapon</h2>
+<p><strong>The problem with AI code:</strong> It doesn’t match your
+patterns. You spend hours refactoring.</p>
+<p><strong>The AOC solution:</strong> Teach your patterns once. Agents
+load them automatically. Code matches from the start.</p>
+<h3 id="how-it-works">How It Works</h3>
+<pre><code>Your Request
+    ↓
+ContextScout discovers relevant patterns
+    ↓
+Agent loads YOUR standards
+    ↓
+Code generated using YOUR patterns
+    ↓
+Ships without refactoring ✅</code></pre>
+<h3 id="add-your-patterns-10-15-minutes">Add Your Patterns (10-15
+Minutes)</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/add-context</span></span></code></pre></div>
+<p><strong>Answer 6 simple questions:</strong> 1. What’s your tech
+stack? (Next.js + TypeScript + PostgreSQL + Tailwind) 2. Show an API
+endpoint example (paste your code) 3. Show a component example (paste
+your code) 4. What naming conventions? (kebab-case, PascalCase,
+camelCase) 5. Any code standards? (TypeScript strict, Zod validation,
+etc.) 6. Any security requirements? (validate input, parameterized
+queries, etc.)</p>
+<p><strong>Result:</strong> Agents now generate code matching your exact
+patterns. No refactoring needed.</p>
+<h3 id="the-mvi-advantage-token-efficiency">The MVI Advantage: Token
+Efficiency</h3>
+<p><strong>MVI (Minimal Viable Information)</strong> = Only load what’s
+needed, when it’s needed.</p>
+<p><strong>Traditional approach:</strong> - Loads entire codebase
+context - Large token overhead per request - Slow responses, high
+costs</p>
+<p><strong>AOC approach:</strong> - Loads only relevant patterns -
+Context files &lt;200 lines (quick to load) - Lazy loading (agents load
+what they need) - 80% of tasks use isolation context (minimal
+overhead)</p>
+<p><strong>Real benefits:</strong> - <strong>Efficiency:</strong> Lower
+token usage vs loading entire codebase - <strong>Speed:</strong> Faster
+responses with smaller context - <strong>Quality:</strong> Code matches
+your patterns (no refactoring)</p>
+<h3 id="for-teams-repeatable-patterns">For Teams: Repeatable
+Patterns</h3>
+<p><strong>The team problem:</strong> Every developer writes code
+differently. Inconsistent patterns. Hard to maintain.</p>
+<p><strong>The AOC solution:</strong> Store team patterns in
+<code>.opencode/context/project/</code>. Commit to repo. Everyone uses
+same standards.</p>
+<p><strong>Example workflow:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Team lead adds patterns once</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/add-context</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Answers questions with team standards</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Commit to repo</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .opencode/context/</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add team coding standards&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># All team members now use same patterns automatically</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># New developers inherit standards on day 1</span></span></code></pre></div>
+<p><strong>Result:</strong> Consistent code across entire team. No style
+debates. No refactoring PRs.</p>
+<hr />
+<h2 id="how-it-works-1">📖 How It Works</h2>
+<h3 id="the-core-idea">The Core Idea</h3>
+<p><strong>Most AI tools:</strong> Generic code → You refactor<br />
+<strong>OpenAgentsControl:</strong> Your patterns → AI generates
+matching code</p>
+<h3 id="the-workflow">The Workflow</h3>
+<pre><code>1. Add Your Context (one time)
+   ↓
+2. ContextScout discovers relevant patterns
+   ↓
+3. Agent loads YOUR standards
+   ↓
+4. Agent proposes plan (using your patterns)
+   ↓
+5. You approve
+   ↓
+6. Agent implements (matches your project)
+   ↓
+7. Code ships (no refactoring needed)</code></pre>
+<h3 id="key-benefits">Key Benefits</h3>
+<p><strong>🎯 Context-Aware</strong><br />
+ContextScout discovers relevant patterns. Agents load YOUR standards
+before generating code. Code matches your project from the start.</p>
+<p><strong>🔁 Repeatable</strong><br />
+Same patterns → Same results. Configure once, use forever. Perfect for
+teams.</p>
+<p><strong>⚡ Token Efficient (80% Reduction)</strong><br />
+MVI principle: Only load what’s needed. 8,000 tokens → 750 tokens.
+Massive cost savings.</p>
+<p><strong>✋ Human-Guided</strong><br />
+Agents propose plans, you approve before execution. Quality gates
+prevent mistakes. No auto-execution surprises.</p>
+<p><strong>📝 Transparent &amp; Editable</strong><br />
+Agents are markdown files you can edit. Change workflows, add
+constraints, customize behavior. No vendor lock-in.</p>
+<h3 id="what-makes-this-special">What Makes This Special</h3>
+<p><strong>1. ContextScout - Smart Pattern Discovery</strong><br />
+Before generating code, ContextScout discovers relevant patterns from
+your context files. Ranks by priority (Critical → High → Medium).
+Prevents wasted work.</p>
+<p><strong>2. Editable Agents - Full Control</strong><br />
+Unlike Cursor/Copilot where behavior is baked into plugins, AOC agents
+are markdown files. Edit them directly:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> .opencode/agent/core/opencoder.md  <span class="co"># local project install</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Or: nano ~/.config/opencode/agent/core/opencoder.md  # global install</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add project rules, change workflows, customize behavior</span></span></code></pre></div>
+<p><strong>3. ExternalScout - Live Documentation</strong> 🆕<br />
+Working with external libraries? ExternalScout fetches current
+documentation: - Gets live docs from official sources (npm, GitHub, docs
+sites) - No outdated training data - always current - Automatically
+triggered when agents detect external dependencies - Supports
+frameworks, APIs, libraries, and more</p>
+<p><strong>4. Approval Gates - No Surprises</strong><br />
+Agents ALWAYS request approval before: - Writing/editing files - Running
+bash commands - Delegating to subagents - Making any changes</p>
+<p>You stay in control. Review plans before execution.</p>
+<p><strong>5. MVI Principle - Token Efficiency</strong><br />
+Files designed for quick loading: - Concepts: &lt;100 lines - Guides:
+&lt;150 lines - Examples: &lt;80 lines</p>
+<p>Result: Lower token usage vs loading entire codebase.</p>
+<p><strong>6. Team Patterns - Repeatable Results</strong><br />
+Store patterns in <code>.opencode/context/project/</code>. Commit to
+repo. Entire team uses same standards. New developers inherit patterns
+automatically.</p>
+<hr />
+<h2 id="which-agent-should-i-use">🎯 Which Agent Should I Use?</h2>
+<h3 id="openagent-start-here">OpenAgent (Start Here)</h3>
+<p><strong>Best for:</strong> Learning the system, general tasks, quick
+implementations</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--agent</span> OpenAgent</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a user authentication system&quot;</span>            <span class="co"># Building features</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;How do I implement authentication in Next.js?&quot;</span>  <span class="co"># Questions</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a README for this project&quot;</span>               <span class="co"># Documentation</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Explain the architecture of this codebase&quot;</span>      <span class="co"># Analysis</span></span></code></pre></div>
+<p><strong>What it does:</strong> - Loads your patterns via ContextScout
+- Proposes plan (you approve) - Executes with validation - Delegates to
+specialists when needed</p>
+<p><strong>Perfect for:</strong> First-time users, simple features,
+learning the workflow</p>
+<h3 id="opencoder-production-development">OpenCoder (Production
+Development)</h3>
+<p><strong>Best for:</strong> Complex features, multi-file refactoring,
+production systems</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--agent</span> OpenCoder</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a user authentication system&quot;</span>                 <span class="co"># Full-stack features</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Refactor this codebase to use dependency injection&quot;</span>  <span class="co"># Multi-file refactoring</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Add real-time notifications with WebSockets&quot;</span>         <span class="co"># Complex implementations</span></span></code></pre></div>
+<p><strong>What it does:</strong> - <strong>Discover:</strong>
+ContextScout finds relevant patterns - <strong>Propose:</strong>
+Detailed implementation plan - <strong>Approve:</strong> You review and
+approve - <strong>Execute:</strong> Incremental implementation with
+validation - <strong>Validate:</strong> Tests, type checking, code
+review - <strong>Ship:</strong> Production-ready code</p>
+<p><strong>Perfect for:</strong> Production code, complex features, team
+development</p>
+<h3 id="systembuilder-custom-ai-systems">SystemBuilder (Custom AI
+Systems)</h3>
+<p><strong>Best for:</strong> Building complete custom AI systems
+tailored to your domain</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--agent</span> SystemBuilder</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a customer support AI system&quot;</span></span></code></pre></div>
+<p>Interactive wizard generates orchestrators, subagents, context files,
+workflows, and commands.</p>
+<p><strong>Perfect for:</strong> Creating domain-specific AI systems</p>
+<hr />
+<h2 id="whats-included">🛠️ What’s Included</h2>
+<h3 id="main-agents">🤖 Main Agents</h3>
+<ul>
+<li><strong>OpenAgent</strong> - General tasks, questions, learning
+(start here)</li>
+<li><strong>OpenCoder</strong> - Production development, complex
+features</li>
+<li><strong>SystemBuilder</strong> - Generate custom AI systems</li>
+</ul>
+<h3 id="specialized-subagents-auto-delegated">🔧 Specialized Subagents
+(Auto-delegated)</h3>
+<ul>
+<li><strong>ContextScout</strong> - Smart pattern discovery (your secret
+weapon)</li>
+<li><strong>TaskManager</strong> - Breaks complex features into atomic
+subtasks</li>
+<li><strong>CoderAgent</strong> - Focused code implementations</li>
+<li><strong>TestEngineer</strong> - Test authoring and TDD</li>
+<li><strong>CodeReviewer</strong> - Code review and security
+analysis</li>
+<li><strong>BuildAgent</strong> - Type checking and build
+validation</li>
+<li><strong>DocWriter</strong> - Documentation generation</li>
+<li><strong>ExternalScout</strong> - Fetches live docs for external
+libraries (no outdated training data) <strong>NEW!</strong></li>
+<li>Plus category specialists: frontend, devops, copywriter,
+technical-writer, data-analyst</li>
+</ul>
+<h3 id="productivity-commands">⚡ Productivity Commands</h3>
+<ul>
+<li><code>/add-context</code> - Interactive wizard to add your
+patterns</li>
+<li><code>/commit</code> - Smart git commits with conventional
+format</li>
+<li><code>/test</code> - Testing workflows</li>
+<li><code>/optimize</code> - Code optimization</li>
+<li><code>/context</code> - Context management</li>
+<li>And 7+ more productivity commands</li>
+</ul>
+<h3 id="context-system-mvi-principle">📚 Context System (MVI
+Principle)</h3>
+<p>Your coding standards automatically loaded by agents: - <strong>Code
+quality</strong> - Your patterns, security, standards -
+<strong>UI/design</strong> - Design system, component patterns -
+<strong>Task management</strong> - Workflow definitions -
+<strong>External libraries</strong> - Integration guides (18+ libraries
+supported) - <strong>Project-specific</strong> - Your team’s
+patterns</p>
+<p><strong>Key features:</strong> - 80% token reduction via MVI - Smart
+discovery via ContextScout - Lazy loading (only what’s needed) -
+Team-ready (commit to repo) - Version controlled (track changes)</p>
+<h3 id="how-context-resolution-works">How Context Resolution Works</h3>
+<p>ContextScout discovers context files using a
+<strong>local-first</strong> approach:</p>
+<pre><code>1. Check local: .opencode/context/core/navigation.md
+   ↓ Found? → Use local for everything. Done.
+   ↓ Not found?
+2. Check global: ~/.config/opencode/context/core/navigation.md
+   ↓ Found? → Use global for core/ files only.
+   ↓ Not found? → Proceed without core context.</code></pre>
+<p><strong>Key rules:</strong> - <strong>Local always wins</strong> — if
+you installed locally, global is never checked - <strong>Global fallback
+is only for <code>core/</code></strong> (standards, workflows, guides) —
+universal files that are the same across projects - <strong>Project
+intelligence is always local</strong> — your tech stack, patterns, and
+naming conventions live in
+<code>.opencode/context/project-intelligence/</code> and are never
+loaded from global - <strong>One-time check</strong> — ContextScout
+resolves the core location once at startup (max 2 glob checks), not
+per-file</p>
+<p><strong>Common setups:</strong></p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 32%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setup</th>
+<th>Core files from</th>
+<th>Project intelligence from</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Local install (<code>bash install.sh developer</code>)</td>
+<td><code>.opencode/context/core/</code></td>
+<td><code>.opencode/context/project-intelligence/</code></td>
+</tr>
+<tr class="even">
+<td>Global install + <code>/add-context</code></td>
+<td><code>~/.config/opencode/context/core/</code></td>
+<td><code>.opencode/context/project-intelligence/</code></td>
+</tr>
+<tr class="odd">
+<td>Both local and global</td>
+<td><code>.opencode/context/core/</code> (local wins)</td>
+<td><code>.opencode/context/project-intelligence/</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="example-workflow">💻 Example Workflow</h2>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--agent</span> OpenCoder</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">&quot;Create a user dashboard with authentication and profile settings&quot;</span></span></code></pre></div>
+<p><strong>What happens:</strong></p>
+<p><strong>1. Discover (~1-2 min)</strong> - ContextScout finds relevant
+patterns - Your tech stack (Next.js + TypeScript + PostgreSQL) - Your
+API pattern (Zod validation, error handling) - Your component pattern
+(functional, TypeScript, Tailwind) - Your naming conventions (kebab-case
+files, PascalCase components)</p>
+<p><strong>2. Propose (~2-3 min)</strong> - Agent creates detailed
+implementation plan</p>
+<pre><code>## Proposed Implementation
+
+**Components:**
+- user-dashboard.tsx (main page)
+- profile-settings.tsx (settings component)
+- auth-guard.tsx (authentication wrapper)
+
+**API Endpoints:**
+- /api/user/profile (GET, POST)
+- /api/auth/session (GET)
+
+**Database:**
+- users table (Drizzle schema)
+- sessions table (Drizzle schema)
+
+All code will follow YOUR patterns from context.
+
+Approve? [y/n]</code></pre>
+<p><strong>3. Approve</strong> - You review and approve the plan
+(human-guided)</p>
+<p><strong>4. Execute (~10-15 min)</strong> - Incremental implementation
+with validation - Implements one component at a time - Uses YOUR
+patterns for every file - Validates after each step (type check, lint) -
+<em>This is the longest step - generating quality code takes
+time</em></p>
+<p><strong>5. Validate (~2-3 min)</strong> - Tests, type checking, code
+review - Delegates to TestEngineer for tests - Delegates to CodeReviewer
+for security check - Ensures production quality</p>
+<p><strong>6. Ship</strong> - Production-ready code - Code matches your
+project exactly - No refactoring needed - Ready to commit and deploy</p>
+<p><strong>Total time: ~15-25 minutes</strong> for a complete feature
+(guided, with approval gates)</p>
+<h3 id="pro-tips">💡 Pro Tips</h3>
+<p><strong>After finishing a feature:</strong> - Run
+<code>/add-context --update</code> to add new patterns you discovered -
+Update your context with new libraries, conventions, or standards - Keep
+your patterns fresh as your project evolves</p>
+<p><strong>Working with external libraries?</strong> -
+<strong>ExternalScout</strong> automatically fetches current
+documentation - No more outdated training data - gets live docs from
+official sources - Works with npm packages, APIs, frameworks, and
+more</p>
+<hr />
+<h2 id="advanced-configuration">⚙️ Advanced Configuration</h2>
+<h3 id="model-configuration-optional">Model Configuration
+(Optional)</h3>
+<p><strong>By default, all agents use your OpenCode default
+model.</strong> Configure models per agent only if you want different
+agents to use different models.</p>
+<p><strong>When to configure:</strong> - You want faster agents to use
+cheaper models (e.g., Haiku/Flash) - You want complex agents to use
+smarter models (e.g., Opus/GPT-5) - You want to test different models
+for different tasks</p>
+<p><strong>How to configure:</strong></p>
+<p>Edit agent files directly:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> .opencode/agent/core/opencoder.md  <span class="co"># local project install</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Or: nano ~/.config/opencode/agent/core/opencoder.md  # global install</span></span></code></pre></div>
+<p>Change the model in the frontmatter:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Development specialist&quot;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> anthropic/claude-sonnet-4-5</span><span class="co">  # Change this line</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Browse available models at <a
+href="https://models.dev/?search=open">models.dev</a> or run
+<code>opencode models</code>.</p>
+<h3 id="update-context-as-you-go">Update Context as You Go</h3>
+<p>Your project evolves. Your context should too.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/add-context</span> <span class="at">--update</span></span></code></pre></div>
+<p><strong>What gets updated:</strong> - Tech stack, patterns, standards
+- Version incremented (1.0 → 1.1) - Updated date refreshed</p>
+<p><strong>Example updates:</strong> - Add new library (Stripe, Twilio,
+etc.) - Change patterns (new API format, component structure) - Migrate
+tech stack (Prisma → Drizzle) - Update security requirements</p>
+<p>Agents automatically use updated patterns.</p>
+<hr />
+<h2 id="is-this-for-you">🎯 Is This For You?</h2>
+<h3 id="use-aoc-if-you">✅ Use AOC if you:</h3>
+<ul>
+<li>Build production code that ships without heavy rework</li>
+<li>Work in a team with established coding standards</li>
+<li>Want control over agent behavior (not black-box plugins)</li>
+<li>Care about token efficiency and cost savings</li>
+<li>Need approval gates for quality assurance</li>
+<li>Want repeatable, consistent results</li>
+<li>Use multiple AI models (no vendor lock-in)</li>
+</ul>
+<h3 id="skip-aoc-if-you">⚠️ Skip AOC if you:</h3>
+<ul>
+<li>Want fully autonomous execution without approval gates</li>
+<li>Prefer “just do it” mode over human-guided workflows</li>
+<li>Don’t have established coding patterns yet</li>
+<li>Need multi-agent parallelization (use Oh My OpenCode instead)</li>
+<li>Want plug-and-play with zero configuration</li>
+</ul>
+<h3 id="not-sure">🤔 Not Sure?</h3>
+<p><strong>Try this test:</strong> 1. Ask your current AI tool to
+generate an API endpoint 2. Count how many minutes you spend refactoring
+it to match your patterns 3. If you’re spending time on refactoring, AOC
+will save you that time</p>
+<p><strong>Or ask yourself:</strong> - Do you have coding standards your
+team follows? - Do you spend time refactoring AI-generated code? - Do
+you want AI to follow YOUR patterns, not generic ones?</p>
+<p>If you answered “yes” to any of these, AOC is for you.</p>
+<hr />
+<h2 id="advanced-features">🚀 Advanced Features</h2>
+<h3 id="frontend-design-workflow">Frontend Design Workflow</h3>
+<p>The <strong>OpenFrontendSpecialist</strong> follows a structured
+4-stage design workflow: 1. <strong>Layout</strong> - ASCII wireframe,
+responsive structure planning 2. <strong>Theme</strong> - Design system
+selection, OKLCH colors, typography 3. <strong>Animation</strong> -
+Micro-interactions, timing, accessibility 4.
+<strong>Implementation</strong> - Single HTML file, semantic markup</p>
+<h3 id="task-management-breakdown">Task Management &amp; Breakdown</h3>
+<p>The <strong>TaskManager</strong> breaks complex features into atomic,
+verifiable subtasks with smart agent suggestions and parallel execution
+support.</p>
+<h3 id="system-builder">System Builder</h3>
+<p>Build complete custom AI systems tailored to your domain in minutes.
+Interactive wizard generates orchestrators, subagents, context files,
+workflows, and commands.</p>
+<hr />
+<h2 id="faq">❓ FAQ</h2>
+<h3 id="getting-started">Getting Started</h3>
+<p><strong>Q: Does this work on Windows?</strong><br />
+A: Yes! Use Git Bash (recommended) or WSL.</p>
+<p><strong>Q: What languages are supported?</strong><br />
+A: Agents are language-agnostic and adapt based on your project files.
+Primarily tested with TypeScript/Node.js. Python, Go, Rust, and other
+languages are supported but less battle-tested. The context system works
+with any language.</p>
+<p><strong>Q: Do I need to add context?</strong><br />
+A: No, but it’s highly recommended. Without context, agents write
+generic code. With context, they write YOUR code.</p>
+<p><strong>Q: Can I use this without customization?</strong><br />
+A: Yes, it works out of the box. But you’ll get the most value after
+adding your patterns (10-15 minutes with <code>/add-context</code>).</p>
+<p><strong>Q: What models are supported?</strong><br />
+A: Any model from any provider (Claude, GPT, Gemini, local models). No
+vendor lock-in.</p>
+<h3 id="for-teams">For Teams</h3>
+<p><strong>Q: How do I share context with my team?</strong><br />
+A: Commit <code>.opencode/context/project/</code> to your repo. Team
+members automatically use same patterns.</p>
+<p><strong>Q: How do we ensure everyone follows the same
+standards?</strong><br />
+A: Add team patterns to context once. All agents load them
+automatically. Consistent code across entire team.</p>
+<p><strong>Q: Can different projects have different
+patterns?</strong><br />
+A: Yes! Use project-specific context (<code>.opencode/</code> in project
+root) to override global patterns.</p>
+<h3 id="technical">Technical</h3>
+<p><strong>Q: How does token efficiency work?</strong><br />
+A: MVI principle: Only load what’s needed, when it’s needed. Context
+files &lt;200 lines (scannable in 30s). ContextScout discovers relevant
+patterns. Lazy loading prevents context bloat. 80% of tasks use
+isolation context (minimal overhead).</p>
+<p><strong>Q: What’s ContextScout?</strong><br />
+A: Smart pattern discovery agent. Finds relevant context files before
+code generation. Ranks by priority. Prevents wasted work.</p>
+<p><strong>Q: Can I edit agent behavior?</strong><br />
+A: Yes! Agents are markdown files. Edit them directly:
+<code>nano .opencode/agent/core/opencoder.md</code> (local) or
+<code>nano ~/.config/opencode/agent/core/opencoder.md</code>
+(global)</p>
+<p><strong>Q: How do approval gates work?</strong><br />
+A: Agents ALWAYS request approval before execution (write/edit/bash).
+You review plans before implementation. No surprises.</p>
+<p><strong>Q: How do I update my context?</strong><br />
+A: Run <code>/add-context --update</code> anytime your patterns change.
+Agents automatically use updated patterns.</p>
+<h3 id="comparison">Comparison</h3>
+<p><strong>Q: How is this different from Cursor/Copilot?</strong><br />
+A: AOC has editable agents (not baked-in), approval gates (not
+auto-execute), context system (YOUR patterns), and MVI token
+efficiency.</p>
+<p><strong>Q: How is this different from Aider?</strong><br />
+A: AOC has team patterns, context system, approval workflow, and smart
+pattern discovery. Aider is file-based only.</p>
+<p><strong>Q: How does this compare to Oh My OpenCode?</strong><br />
+A: Both are built on OpenCode. AOC focuses on <strong>control &amp;
+repeatability</strong> (approval gates, pattern control, team
+standards). Oh My OpenCode focuses on <strong>autonomy &amp;
+speed</strong> (parallel agents, auto-execution). <a
+href="https://github.com/darrenhinde/OpenAgentsControl/discussions/116">Read
+detailed comparison →</a></p>
+<p><strong>Q: When should I NOT use AOC?</strong><br />
+A: If you want fully autonomous execution without approval gates, or if
+you don’t have established coding patterns yet.</p>
+<h3 id="setup">Setup</h3>
+<p><strong>Q: What bash version do I need?</strong><br />
+A: Bash 3.2+ (macOS default works). Run
+<code>bash scripts/tests/test-compatibility.sh</code> to check.</p>
+<p><strong>Q: Do I need to install plugins/tools?</strong><br />
+A: No, they’re optional. Only install if you want Telegram notifications
+or Gemini AI features.</p>
+<p><strong>Q: Where should I install - globally or
+per-project?</strong><br />
+A: Local (<code>.opencode/</code> in your project) is recommended —
+patterns are committed to git and shared with your team. Global
+(<code>~/.config/opencode/</code>) is good for personal defaults across
+all projects. The installer asks you to choose. See <a
+href="https://opencode.ai/docs/config/">OpenCode Config Docs</a> for how
+configs merge.</p>
+<hr />
+<h2 id="roadmap-whats-coming">🗺️ Roadmap &amp; What’s Coming</h2>
+<p><strong>This is only the beginning!</strong> We’re actively
+developing new features and improvements every day.</p>
+<h3 id="see-whats-coming-next">🚀 See What’s Coming Next</h3>
+<p>Check out our <a
+href="https://github.com/darrenhinde/OpenAgentsControl/projects"><strong>Project
+Board</strong></a> to see: - 🔨 <strong>In Progress</strong> - Features
+being built right now - 📋 <strong>Planned</strong> - What’s coming soon
+- 💡 <strong>Ideas</strong> - Future enhancements under consideration -
+✅ <strong>Recently Shipped</strong> - Latest improvements</p>
+<h3 id="current-focus-areas">🎯 Current Focus Areas</h3>
+<ul>
+<li><strong>Plugin System</strong> - npm-based plugin architecture for
+easy distribution</li>
+<li><strong>Performance Improvements</strong> - Faster agent execution
+and context loading</li>
+<li><strong>Enhanced Context Discovery</strong> - Smarter pattern
+recognition</li>
+<li><strong>Multi-language Support</strong> - Better Python, Go, Rust
+support</li>
+<li><strong>Team Collaboration</strong> - Shared context and team
+workflows</li>
+<li><strong>Documentation</strong> - More examples, tutorials, and
+guides</li>
+</ul>
+<h3 id="have-ideas">💬 Have Ideas?</h3>
+<p>We’d love to hear from you! - 💡 <a
+href="https://github.com/darrenhinde/OpenAgentsControl/issues/new?labels=enhancement"><strong>Submit
+Feature Requests</strong></a> - 🐛 <a
+href="https://github.com/darrenhinde/OpenAgentsControl/issues/new?labels=bug"><strong>Report
+Bugs</strong></a> - 💬 <a
+href="https://github.com/darrenhinde/OpenAgentsControl/discussions"><strong>Join
+Discussions</strong></a></p>
+<p><strong>Star the repo</strong> ⭐ to stay updated with new
+releases!</p>
+<hr />
+<h2 id="contributing">🤝 Contributing</h2>
+<p>We welcome contributions!</p>
+<ol type="1">
+<li>Follow the established naming conventions and coding standards</li>
+<li>Write comprehensive tests for new features</li>
+<li>Update documentation for any changes</li>
+<li>Ensure security best practices are followed</li>
+</ol>
+<p>See: <a href="docs/contributing/CONTRIBUTING.md">Contributing
+Guide</a> • <a href="docs/contributing/CODE_OF_CONDUCT.md">Code of
+Conduct</a></p>
+<hr />
+<h2 id="community-support">💬 Community &amp; Support</h2>
+<div data-align="center">
+<p><strong>Join the community and stay updated with the latest AI
+development workflows!</strong></p>
+<p><a href="https://youtube.com/@DarrenBuildsAI"><img
+src="https://img.shields.io/badge/YouTube-Darren_Builds_AI-red?style=for-the-badge&amp;logo=youtube&amp;logoColor=white"
+alt="YouTube" /></a> <a href="https://nextsystems.ai"><img
+src="https://img.shields.io/badge/Community-NextSystems.ai-blue?style=for-the-badge&amp;logo=discourse&amp;logoColor=white"
+alt="Community" /></a> <a href="https://x.com/DarrenBuildsAI"><img
+src="https://img.shields.io/badge/Follow-@DarrenBuildsAI-1DA1F2?style=for-the-badge&amp;logo=x&amp;logoColor=white"
+alt="X/Twitter" /></a> <a
+href="https://buymeacoffee.com/darrenhinde"><img
+src="https://img.shields.io/badge/Support-Buy_Me_A_Coffee-FFDD00?style=for-the-badge&amp;logo=buy-me-a-coffee&amp;logoColor=black"
+alt="Buy Me A Coffee" /></a></p>
+<p><strong>📺 Tutorials &amp; Demos</strong> • <strong>💬 Join
+Waitlist</strong> • <strong>🐦 Latest Updates</strong> • <strong>☕
+Support Development</strong></p>
+<p><em>Your support helps keep this project free and
+open-source!</em></p>
+</div>
+<hr />
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License.</p>
+<hr />
+<p><strong>Made with ❤️ by developers, for developers. Star the repo if
+this saves you refactoring time!</strong></p>
+</body>
+</html>

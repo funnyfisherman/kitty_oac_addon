@@ -1,0 +1,26 @@
+# Local configuration files
+*.local
+config.env.local
+.env.local
+
+# Backup files
+*.bak
+*.backup
+*~
+*.swp
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# Kitty specific
+kitty/kitty.conf.bak
